@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an instance of Axios
 const apiClient = axios.create({
-  baseURL:"https://syncronous-server.onrender.com",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true, // This ensures cookies are sent with requests
 });
 
