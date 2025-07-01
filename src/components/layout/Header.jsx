@@ -118,7 +118,7 @@ const Header = () => {
     overflow: "hidden",
     minWidth: 0,
     gap: { xs: 0.25, sm: 1 }, // reduces space between icons on small screens
-    pr: { xs: 0.5, sm: 1 }, // add slight right padding so Logout isn't clipped
+  
   }}
 >
 
