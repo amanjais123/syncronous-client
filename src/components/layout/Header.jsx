@@ -88,8 +88,9 @@ const Header = () => {
   sx={{
     px: 1,
     minHeight: "4rem",
-    justifyContent: "space-between",
+    flexWrap: "wrap",
     alignItems: "center",
+    justifyContent: "space-between",
   }}
 >
 
@@ -109,19 +110,7 @@ const Header = () => {
 
   <Box sx={{ flexGrow: 1 }} />
 
-<Box
-  sx={{
-    display: "flex",
-    alignItems: "center",
-    flexShrink: 1,
-    flexWrap: "nowrap",
-    overflow: "hidden",
-    minWidth: 0,
-    gap: { xs: 0.25, sm: 1 }, // reduces space between icons on small screens
-  
-  }}
->
-
+  <Box>
     <IconBtn title="Search" icon={<SearchIcon />} onClick={openSearch} />
     <IconBtn title="New Group" icon={<AddIcon />} onClick={openNewGroup} />
     <IconBtn title="Manage Groups" icon={<GroupIcon />} onClick={navigateToGroup} />
