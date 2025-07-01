@@ -77,7 +77,7 @@ const Header = () => {
     <>
       <Box sx={{ flexGrow: 1 }} height={"4rem"}>
         <AppBar
-          position="static"
+     position="fixed"
           sx={{
             bgcolor: "#0a6151",
               boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
@@ -117,8 +117,11 @@ const Header = () => {
     flexWrap: "nowrap",
     overflow: "hidden",
     minWidth: 0,
+    gap: { xs: 0.25, sm: 1 }, // reduces space between icons on small screens
+    pr: { xs: 0.5, sm: 1 }, // add slight right padding so Logout isn't clipped
   }}
 >
+
     <IconBtn title="Search" icon={<SearchIcon />} onClick={openSearch} />
     <IconBtn title="New Group" icon={<AddIcon />} onClick={openNewGroup} />
     <IconBtn title="Manage Groups" icon={<GroupIcon />} onClick={navigateToGroup} />
