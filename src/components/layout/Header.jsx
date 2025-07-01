@@ -88,12 +88,11 @@ const Header = () => {
   sx={{
     px: 1,
     minHeight: "4rem",
-    flexWrap: "wrap",
-    alignItems: "center",
     justifyContent: "space-between",
-    gap: 1,
+    alignItems: "center",
   }}
 >
+
 
   {/* Mobile: Menu Icon first, then Logo */}
   <Box sx={{ display: { xs: "flex", sm: "none" }, alignItems: "center", gap: 1 }}>
@@ -110,18 +109,16 @@ const Header = () => {
 
   <Box sx={{ flexGrow: 1 }} />
 
-  <Box
+<Box
   sx={{
     display: "flex",
     alignItems: "center",
-    flexWrap: "wrap",
-    justifyContent: { xs: "flex-end", sm: "flex-end" },
-    gap: { xs: 0.5, sm: 1 },
-    maxWidth: { xs: "100%", sm: "none" },
+    flexShrink: 1,
+    flexWrap: "nowrap",
     overflow: "hidden",
+    minWidth: 0,
   }}
 >
-
     <IconBtn title="Search" icon={<SearchIcon />} onClick={openSearch} />
     <IconBtn title="New Group" icon={<AddIcon />} onClick={openNewGroup} />
     <IconBtn title="Manage Groups" icon={<GroupIcon />} onClick={navigateToGroup} />
