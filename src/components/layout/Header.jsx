@@ -86,7 +86,7 @@ const Header = () => {
         >
     <Toolbar
   sx={{
-    px: 2,
+    px: 1,
     minHeight: "4rem",
     justifyContent: "space-between",
   }}
