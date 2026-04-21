@@ -1,85 +1,73 @@
-import { Grid, Skeleton, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
-import { BouncingSkeleton } from "../styles/StyledComponents";
 
 const LayoutLoader = () => {
   return (
-    <Grid container height={"calc(100vh - 4rem)"} spacing={"1rem"}>
-      <Grid
-        item
-        sm={4}
-        md={3}
-        sx={{
-          display: { xs: "none", sm: "block" },
-        }}
-        height={"100%"}
-      >
-        <Skeleton variant="rectangular" height={"100vh"} />
-      </Grid>
-      <Grid item xs={12} sm={8} md={5} lg={6} height={"100%"}>
-        <Stack spacing={"1rem"}>
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Skeleton key={index} variant="rounded" height={"5rem"} />
-          ))}
-        </Stack>
-      </Grid>
+    <div style={{ display: "flex", height: "100vh", background: "#faf8ff" }}>
+      {/* Sidebar Skeleton */}
+      <div style={{ width: 300, background: "#f2f3ff", padding: "1.25rem", flexShrink: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        {/* Header */}
+        <div style={{ height: 24, background: "#eaedff", borderRadius: 12, width: "40%", marginBottom: "0.5rem" }} />
+        {/* Search bar */}
+        <div style={{ height: 40, background: "#eaedff", borderRadius: 9999, marginBottom: "0.5rem" }} />
+        {/* Chat items */}
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "center", padding: "0.5rem 0" }}>
+            <div style={{ width: 48, height: 48, borderRadius: "50%", background: "#eaedff", flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ height: 13, background: "#eaedff", borderRadius: 8, marginBottom: 6, width: `${50 + Math.random() * 30}%` }} />
+              <div style={{ height: 11, background: "#e2e7ff", borderRadius: 8, width: `${60 + Math.random() * 30}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
 
-      <Grid
-        item
-        md={4}
-        lg={3}
-        height={"100%"}
-        sx={{
-          display: { xs: "none", md: "block" },
-        }}
-      >
-        <Skeleton variant="rectangular" height={"100vh"} />
-      </Grid>
-    </Grid>
+      {/* Chat Panel Skeleton */}
+      <div style={{ flex: 1, background: "#ffffff", display: "flex", flexDirection: "column" }}>
+        {/* Header */}
+        <div style={{ height: 64, background: "#faf8ff", borderBottom: "1px solid rgba(199,196,215,0.3)", display: "flex", alignItems: "center", padding: "0 1.25rem", gap: "0.75rem" }}>
+          <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#eaedff" }} />
+          <div>
+            <div style={{ height: 13, background: "#eaedff", borderRadius: 8, width: 120, marginBottom: 4 }} />
+            <div style={{ height: 10, background: "#e2e7ff", borderRadius: 8, width: 60 }} />
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div style={{ flex: 1, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          {Array.from({ length: 7 }).map((_, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: i % 3 === 0 ? "flex-end" : "flex-start" }}>
+              <div style={{
+                height: 44,
+                width: `${25 + Math.random() * 40}%`,
+                background: i % 3 === 0 ? "linear-gradient(90deg, #dae2fd 25%, #e2e7ff 50%, #dae2fd 75%)" : "linear-gradient(90deg, #eaedff 25%, #f2f3ff 50%, #eaedff 75%)",
+                backgroundSize: "200% 100%",
+                borderRadius: i % 3 === 0 ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
+                animation: "skeleton-shimmer 1.5s infinite",
+              }} />
+            </div>
+          ))}
+        </div>
+
+        {/* Input bar */}
+        <div style={{ height: 72, background: "#faf8ff", borderTop: "1px solid rgba(199,196,215,0.3)", display: "flex", alignItems: "center", padding: "0 1.25rem", gap: "0.75rem" }}>
+          <div style={{ flex: 1, height: 44, background: "#eaedff", borderRadius: 9999 }} />
+          <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#dae2fd" }} />
+        </div>
+      </div>
+    </div>
   );
 };
 
 const TypingLoader = () => {
   return (
-    <Stack
-      spacing={"0.5rem"}
-      direction={"row"}
-      padding={"0.5rem"}
-      justifyContent={"center"}
-    >
-      <BouncingSkeleton
-        variant="circular"
-        width={5}
-        height={5}
-        style={{
-          animationDelay: "0.1s",
-        }}
-      />
-      <BouncingSkeleton
-        variant="circular"
-        width={5}
-        height={5}
-        style={{
-          animationDelay: "0.2s",
-        }}
-      />
-      <BouncingSkeleton
-        variant="circular"
-        width={5}
-        height={5}
-        style={{
-          animationDelay: "0.4s",
-        }}
-      />
-      <BouncingSkeleton
-        variant="circular"
-        width={5}
-        height={5}
-        style={{
-          animationDelay: "0.6s",
-        }}
-      />
-    </Stack>
+    <div className="message-wrap received">
+      <div className="typing-indicator">
+        <span className="typing-dot" />
+        <span className="typing-dot" />
+        <span className="typing-dot" />
+      </div>
+    </div>
   );
 };
 

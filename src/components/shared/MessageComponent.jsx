@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import React, { memo } from "react";
-import { lightBlue } from "../../constants/color";
 import moment from "moment";
 import { fileFormat } from "../../lib/features";
 import RenderAttachment from "./RenderAttachement";
@@ -14,72 +13,58 @@ const MessageComponent = ({ message, user }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: sameSender ? "50%" : "-50%" }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ type: "spring", stiffness: 80 }}
-      style={{
-        alignSelf: sameSender ? "flex-end" : "flex-start",
-        backgroundColor: sameSender ? "#dcf8c6" : "#ffffff",
-        color: "#111",
-        borderRadius: "1rem",
-        padding: "0.75rem 1rem",
-        margin: "0.25rem 0",
-        maxWidth: "80%",
-        boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
-      }}
+      initial={{ opacity: 0, y: 8, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ type: "spring", stiffness: 120, damping: 20 }}
+      className={`message-wrap ${sameSender ? "sent" : "received"}`}
     >
-      {!sameSender && (
-        <Typography
-          color={lightBlue}
-          fontWeight={600}
-          fontSize="0.75rem"
-          mb="0.25rem"
-        >
-          {sender.name}
-        </Typography>
+      {/* Sender name (for group received messages) */}
+      {!sameSender && sender?.name && (
+        <div className="message-sender-name">{sender.name}</div>
       )}
 
-      {content && (
-        <Typography
-          fontSize="0.95rem"
-          fontWeight={400}
-          sx={{ wordBreak: "break-word" }}
+      <div className={`message-bubble ${sameSender ? "sent" : "received"}`}>
+        {/* Attachments */}
+        {attachments.length > 0 &&
+          attachments.map((attachment, index) => {
+            const url = attachment.url;
+            const file = fileFormat(url);
+            return (
+              <Box key={index} mb={content ? 1 : 0}>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  style={{ color: sameSender ? "rgba(255,255,255,0.9)" : "#4648d4", textDecoration: "none" }}
+                >
+                  {RenderAttachment(file, url)}
+                </a>
+              </Box>
+            );
+          })}
+
+        {/* Text content */}
+        {content && (
+          <span style={{ display: "block", wordBreak: "break-word", lineHeight: 1.5 }}>
+            {content}
+          </span>
+        )}
+
+        {/* Timestamp inline */}
+        <span
+          style={{
+            display: "block",
+            fontSize: "0.6875rem",
+            marginTop: "4px",
+            textAlign: "right",
+            opacity: sameSender ? 0.7 : 0.6,
+            color: sameSender ? "white" : "#464554",
+          }}
         >
-          {content}
-        </Typography>
-      )}
-
-      {attachments.length > 0 &&
-        attachments.map((attachment, index) => {
-          const url = attachment.url;
-          const file = fileFormat(url);
-
-          return (
-            <Box key={index} mt={1}>
-              <a
-                href={url}
-                target="_blank"
-                download
-                style={{
-                  color: "black",
-                  textDecoration: "none",
-                }}
-              >
-                {RenderAttachment(file, url)}
-              </a>
-            </Box>
-          );
-        })}
-
-      <Typography
-        variant="caption"
-        color="text.secondary"
-        display="block"
-        textAlign="right"
-        mt={0.5}
-      >
-        {timeAgo}
-      </Typography>
+          {timeAgo}
+        </span>
+      </div>
     </motion.div>
   );
 };

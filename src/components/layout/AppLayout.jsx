@@ -98,25 +98,58 @@ const AppLayout = () => (WrappedComponent) => {
           deleteMenuAnchor={deleteMenuAnchor}
         />
 
-        {/* Mobile Drawer */}
+        {/* Mobile Drawer — full-width chat list */}
         <Drawer
           open={isMobile}
           onClose={handleMobileClose}
           PaperProps={{
             sx: {
-              width: "75vw",
-              backgroundColor: "#117f6b", // lighter than navbar
-              color: "#fff",
-              backdropFilter: "blur(8px)",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
-              padding: "1rem",
-              borderTopRightRadius: "1rem",
-              borderBottomRightRadius: "1rem",
+              width: "85vw",
+              maxWidth: 360,
+              background: "#f2f3ff",
+              boxShadow: "0 20px 60px rgba(19,27,46,0.15)",
+              borderTopRightRadius: "24px",
+              borderBottomRightRadius: "24px",
+              padding: 0,
+              overflow: "hidden",
             },
           }}
         >
+          {/* Drawer Header */}
+          <Box sx={{
+            padding: "1.25rem 1.25rem 0.75rem",
+            background: "#f2f3ff",
+          }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: "0.625rem", mb: "0.75rem" }}>
+              <Box sx={{
+                width: 28, height: 28,
+                background: "linear-gradient(135deg, #4648d4, #6063ee)",
+                borderRadius: "8px",
+                display: "flex", alignItems: "center", justifyContent: "center"
+              }}>
+                <svg width="14" height="14" viewBox="0 0 78 32" fill="none">
+                  <path d="M55.5 0H77.5L58.5 32H36.5L55.5 0Z" fill="white" />
+                  <path d="M35.5 0H51.5L32.5 32H16.5L35.5 0Z" fill="rgba(255,255,255,0.7)" />
+                  <path d="M19.5 0H31.5L12.5 32H0.5L19.5 0Z" fill="rgba(255,255,255,0.45)" />
+                </svg>
+              </Box>
+              <span style={{ fontWeight: 700, fontSize: "1rem", color: "#131b2e" }}>Messages</span>
+            </Box>
+            {/* Search in drawer */}
+            <Box sx={{
+              display: "flex", alignItems: "center", gap: "0.5rem",
+              background: "#eaedff", borderRadius: "9999px",
+              padding: "0.5rem 1rem",
+            }}>
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#767586" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+              <span style={{ fontSize: "0.875rem", color: "#767586" }}>Search...</span>
+            </Box>
+          </Box>
+
           {isLoading ? (
-            <Skeleton variant="rectangular" height="100%" />
+            <Skeleton variant="rectangular" height="100%" sx={{ margin: "1rem" }} />
           ) : (
             <ChatList
               chats={data?.chats}
@@ -128,51 +161,53 @@ const AppLayout = () => (WrappedComponent) => {
           )}
         </Drawer>
 
-        {/* Desktop Layout using Flexbox */}
-        <Box
-          sx={{
-            display: "flex",
-            height: "calc(100vh - 4rem)",
-          }}
-        >
+        {/* Desktop Layout */}
+        <div className="app-layout">
           {/* Sidebar */}
           <Box
-            sx={{
-              width: "260px",
-              backgroundColor: "#117f6b", // lighter than navbar
-              color: "#fff",
-              borderRight: "1px solid #0a6151",
-              display: { xs: "none", sm: "block" },
-              overflowY: "auto",
-            }}
+            component="aside"
+            className="app-sidebar"
+            sx={{ display: { xs: "none", sm: "flex" } }}
           >
-            {isLoading ? (
-              <Skeleton variant="rectangular" height="100%" />
-            ) : (
-              <ChatList
-                chats={data?.chats}
-                chatId={chatId}
-                handleDeleteChat={handleDeleteChat}
-                newMessagesAlert={newMessagesAlert}
-                onlineUsers={onlineUsers}
-              />
-            )}
+            {/* Sidebar Header */}
+            <div className="chat-list-header">
+              <div className="chat-list-title">Messages</div>
+              <div className="chat-search-bar">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#767586" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                <input className="chat-search-input" placeholder="Search conversations..." />
+              </div>
+            </div>
+
+            <div className="chat-list-items">
+              {isLoading ? (
+                Array(5).fill(0).map((_, i) => (
+                  <Box key={i} sx={{ display: "flex", gap: "0.75rem", padding: "0.75rem 1.25rem", alignItems: "center" }}>
+                    <Box sx={{ width: 48, height: 48, borderRadius: "50%", background: "#eaedff" }} />
+                    <Box sx={{ flex: 1 }}>
+                      <Box sx={{ height: 14, background: "#eaedff", borderRadius: 8, mb: "6px", width: "60%" }} />
+                      <Box sx={{ height: 11, background: "#eaedff", borderRadius: 8, width: "80%" }} />
+                    </Box>
+                  </Box>
+                ))
+              ) : (
+                <ChatList
+                  chats={data?.chats}
+                  chatId={chatId}
+                  handleDeleteChat={handleDeleteChat}
+                  newMessagesAlert={newMessagesAlert}
+                  onlineUsers={onlineUsers}
+                />
+              )}
+            </div>
           </Box>
 
           {/* Chat Panel */}
-          <Box
-            sx={{
-              flexGrow: 1,
-              backgroundColor: "#ffffff",
-              display: "flex",
-              flexDirection: "column",
-              overflow: "hidden",
-              borderLeft: "1px solid #eee",
-            }}
-          >
+          <main className="app-chat-panel">
             <WrappedComponent {...props} chatId={chatId} user={user} />
-          </Box>
-        </Box>
+          </main>
+        </div>
       </>
     );
   };

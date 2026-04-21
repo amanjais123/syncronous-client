@@ -1,54 +1,54 @@
 import React from "react";
 import AppLayout from "../components/layout/AppLayout";
-import { Box, Typography } from "@mui/material";
-import { grayColor } from "../constants/color";
 
 const Home = () => {
   return (
-    <Box
-      bgcolor={grayColor}
-      height="100%"
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      textAlign="center"
-      px={2}
-    >
+    <div className="home-empty">
+      {/* Animated Logo */}
+      <div className="home-empty-logo">
+        <svg width="44" height="44" viewBox="0 0 78 32" fill="none">
+          <path d="M55.5 0H77.5L58.5 32H36.5L55.5 0Z" fill="rgba(255,255,255,0.95)" />
+          <path d="M35.5 0H51.5L32.5 32H16.5L35.5 0Z" fill="rgba(255,255,255,0.7)" />
+          <path d="M19.5 0H31.5L12.5 32H0.5L19.5 0Z" fill="rgba(255,255,255,0.45)" />
+        </svg>
+      </div>
 
-    <div className="mb-2">
-      <svg
-        id="logo-38"
-        width="78"
-        height="32"
-        viewBox="0 0 78 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M55.5 0H77.5L58.5 32H36.5L55.5 0Z"
-          className="ccustom"
-          fill="#8338ec"
-        />
-        <path
-          d="M35.5 0H51.5L32.5 32H16.5L35.5 0Z"
-          className="ccompli1"
-          fill="#975aed"
-        />
-        <path
-          d="M19.5 0H31.5L12.5 32H0.5L19.5 0Z"
-          className="ccompli2"
-          fill="#a16ee8"
-        />
-      </svg>
+      <div>
+        <h3>Welcome to Syncronous</h3>
+        <p style={{ marginTop: "0.5rem" }}>Select a conversation to start messaging</p>
+      </div>
+
+      {/* Tips */}
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.75rem",
+        marginTop: "0.5rem",
+        width: "100%",
+        maxWidth: 320,
+      }}>
+        {[
+          { emoji: "🔍", text: "Search for people using the search icon" },
+          { emoji: "✉️", text: "Start a new group with the + button" },
+          { emoji: "🔔", text: "View friend requests in notifications" },
+        ].map(({ emoji, text }, i) => (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              background: "#f2f3ff",
+              borderRadius: 12,
+              padding: "0.75rem 1rem",
+            }}
+          >
+            <span style={{ fontSize: "1.25rem" }}>{emoji}</span>
+            <span style={{ fontSize: "0.875rem", color: "#464554" }}>{text}</span>
+          </div>
+        ))}
+      </div>
     </div>
-      <Typography variant="h4" color="textSecondary" gutterBottom>
-        Welcome to Syncronous
-      </Typography>
-      <Typography variant="body1" color="textSecondary">
-        Select a chat to start messaging
-      </Typography>
-    </Box>
   );
 };
 

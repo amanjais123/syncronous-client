@@ -1,6 +1,5 @@
 import { Skeleton, keyframes, styled } from "@mui/material";
 import { Link as LinkComponent } from "react-router-dom";
-import { grayColor, matBlack } from "../../constants/color";
 
 const VisuallyHiddenInput = styled("input")({
   border: 0,
@@ -16,51 +15,59 @@ const VisuallyHiddenInput = styled("input")({
 
 const Link = styled(LinkComponent)`
   text-decoration: none;
-  color: black;
-  padding: 1rem;
+  color: #131b2e;
+  display: block;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(70, 72, 212, 0.06);
   }
 `;
 
 const InputBox = styled("input")`
-  width: 100%;
-  height: 100%;
+  flex: 1;
   border: none;
+  background: none;
   outline: none;
-  padding: 0 3rem;
-  border-radius: 1.5rem;
-  background-color: ${grayColor};
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #131b2e;
+  &::placeholder {
+    color: #767586;
+  }
 `;
 
 const SearchField = styled("input")`
-  padding: 1rem 2rem;
-  width: 20vmax;
+  flex: 1;
   border: none;
+  background: none;
   outline: none;
-  border-radius: 1.5rem;
-  background-color: ${grayColor};
-  font-size: 1.1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #131b2e;
+  &::placeholder {
+    color: #767586;
+  }
 `;
 
 const CurveButton = styled("button")`
-  border-radius: 1.5rem;
-  padding: 1rem 2rem;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: ${matBlack};
+  background: linear-gradient(135deg, #4648d4, #6063ee);
   color: white;
-  font-size: 1.1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0.9;
   }
 `;
 
 const bounceAnimation = keyframes`
-0% { transform: scale(1); }
-50% { transform: scale(1.5); }
-100% { transform: scale(1); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
 `;
 
 const BouncingSkeleton = styled(Skeleton)(() => ({
